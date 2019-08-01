@@ -13,7 +13,7 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'get_oauth_tokens=google_oauth2_tokens.cli:main'
+            'google-oauth-tokens = google_oauth2_desktop_flow.cli:main'
         ]
     }
 )
