@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='google_oauth2_desktop_flow',
-    version='0.0.3',
+    version='0.0.4',
     author='Paulo Rosário',
     author_email='paulo.filip3@gmail.com',
     packages=find_packages(),
