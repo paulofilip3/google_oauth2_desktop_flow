@@ -17,6 +17,8 @@ def get_tokens(scopes, client_secret_path=DEFAULT_CLIENT_SECRET_PATH):
     def get_oauth_code():
         code = request.args.get("code")
         queue.put(code)
+        queue.close()
+        queue.join_thread()
         return 'You can close this window now!', 200
 
     server = Process(target=app.run, kwargs={'port': 8081})
@@ -30,9 +32,8 @@ def get_tokens(scopes, client_secret_path=DEFAULT_CLIENT_SECRET_PATH):
 
     webbrowser.open(url[0])
     oauth_code = queue.get()
-    sleep(2)  # give some time for flask to return a response
-    server.terminate()
     server.join()
+    server.terminate()
     flow.fetch_token(code=oauth_code)
     return flow.credentials
 
