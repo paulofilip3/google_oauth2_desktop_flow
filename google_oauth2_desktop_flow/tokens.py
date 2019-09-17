@@ -40,6 +40,7 @@ def get_tokens(scopes, client_secret_path=DEFAULT_CLIENT_SECRET_PATH):
     url = flow.authorization_url(access_type='offline')
 
     webbrowser.open(url[0])
+    print('Open the following URL in the browser:', url[0])
     oauth_code = Q.get()
     server.terminate()
     flow.fetch_token(code=oauth_code)
