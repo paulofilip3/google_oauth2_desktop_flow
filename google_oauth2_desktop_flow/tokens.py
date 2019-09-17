@@ -1,7 +1,6 @@
 
 import os
 import webbrowser
-from time import sleep
 import google_auth_oauthlib
 from flask import Flask, request
 from multiprocessing import Process, Queue
@@ -26,12 +25,10 @@ def get_tokens(scopes, client_secret_path=DEFAULT_CLIENT_SECRET_PATH):
         client_secret_path,
         scopes=scopes)
     flow.redirect_uri = 'http://127.0.0.1:8081'
-    url = flow.authorization_url(access_type='offline', include_granted_scopes='true')
+    url = flow.authorization_url(access_type='offline')
 
     webbrowser.open(url[0])
     oauth_code = queue.get()
-    server.join()
     server.terminate()
     flow.fetch_token(code=oauth_code)
     return flow.credentials
-
